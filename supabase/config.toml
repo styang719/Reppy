@@ -1,0 +1,4 @@
+project_id = "reppy"
+
+[functions.identify-equipment]
+verify_jwt = true
