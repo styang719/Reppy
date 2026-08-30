@@ -34,6 +34,7 @@
     "babel-preset-expo": "^57.0.9",
     "eslint": "^9.39.5",
     "eslint-config-expo": "^57.0.2",
+    "supabase": "^2.116.0",
     "tsx": "^4.23.13",
     "typescript": "~6.0.3"
   },
@@ -48,7 +49,10 @@
     "db:push": "supabase db push",
     "ingest": "tsx scripts/ingest/run.ts",
     "eval": "tsx scripts/eval/identify.ts",
-    "curate": "tsx scripts/curate/media.ts"
+    "curate": "tsx scripts/curate/media.ts",
+    "db:link": "supabase link --project-ref opuukgfcqbrtissdawyq",
+    "db:types": "supabase gen types typescript --linked > src/lib/database.types.ts",
+    "fn:deploy": "supabase functions deploy identify-equipment"
   },
   "private": true
 }
