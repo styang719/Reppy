@@ -40,6 +40,31 @@ export type Exercise = {
   fetched_at: string;
 }
 
+export type MediaKind = 'walkthrough' | 'exercise-demo' | 'form-tip';
+
+export type MediaSource =
+  | 'youtube'
+  | 'free-exercise-db'
+  | 'exercisedb'
+  | 'musclewiki'
+  | 'manual';
+
+export type EquipmentMedia = {
+  id: string;
+  equipment_id: string;
+  exercise_id: string | null;
+  kind: MediaKind;
+  source: MediaSource;
+  source_id: string | null;
+  url: string | null;
+  title: string;
+  attribution: string | null;
+  duration_s: number | null;
+  rank: number;
+  is_active: boolean;
+  created_at: string;
+};
+
 export type Scan = {
   id: string;
   user_id: string | null;
@@ -91,6 +116,20 @@ export type Database = {
             columns: ['exercise_id'];
             isOneToOne: false;
             referencedRelation: 'exercise';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      equipment_media: {
+        Row: EquipmentMedia;
+        Insert: Partial<EquipmentMedia>;
+        Update: Partial<EquipmentMedia>;
+        Relationships: [
+          {
+            foreignKeyName: 'equipment_media_equipment_id_fkey';
+            columns: ['equipment_id'];
+            isOneToOne: false;
+            referencedRelation: 'equipment';
             referencedColumns: ['id'];
           },
         ];

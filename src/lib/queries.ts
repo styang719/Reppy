@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from './supabase';
-import type { Equipment, Exercise } from './database.types';
+import type { Equipment, EquipmentMedia, Exercise, MediaKind } from './database.types';
 
 export function useEquipment(slug: string | null) {
   return useQuery({
@@ -62,6 +62,27 @@ export function useAllEquipment() {
         .order('display_name');
       if (error) throw error;
       return (data ?? []) as Equipment[];
+    },
+  });
+}
+
+/** Ranked media for a machine. `kind` narrows to walkthroughs or demos. */
+export function useEquipmentMedia(equipmentId: string | null, kind?: MediaKind) {
+  return useQuery({
+    queryKey: ['equipment-media', equipmentId, kind ?? 'all'],
+    enabled: !!equipmentId,
+    queryFn: async (): Promise<EquipmentMedia[]> => {
+      let q = supabase
+        .from('equipment_media')
+        .select('*')
+        .eq('equipment_id', equipmentId!)
+        .eq('is_active', true);
+
+      if (kind) q = q.eq('kind', kind);
+
+      const { data, error } = await q.order('rank', { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as EquipmentMedia[];
     },
   });
 }

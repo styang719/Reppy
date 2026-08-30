@@ -9,7 +9,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useEquipment, useEquipmentExercises } from '@/lib/queries';
+import { useEquipment, useEquipmentExercises, useEquipmentMedia } from '@/lib/queries';
+import { resolveBest } from '@/lib/media';
+import { MediaPlayer } from '@/components/MediaPlayer';
 import { recordScanFeedback } from '@/lib/identify';
 import { colors, radius, space, type } from '@/theme';
 
@@ -25,6 +27,11 @@ export default function EquipmentScreen() {
 
   const { data: equipment, isLoading, error } = useEquipment(params.slug ?? null);
   const { data: exercises } = useEquipmentExercises(equipment?.id ?? null);
+  const { data: media } = useEquipmentMedia(equipment?.id ?? null, 'walkthrough');
+
+  // Ranked, so an unresolvable top source yields to the next rather than
+  // leaving the screen empty.
+  const walkthrough = media ? resolveBest(media) : null;
   const [feedbackGiven, setFeedbackGiven] = useState(false);
 
   const alternatives = params.alternatives ? params.alternatives.split(',').filter(Boolean) : [];
@@ -102,6 +109,13 @@ export default function EquipmentScreen() {
         {!!equipment.description && (
           <Text style={[type.body, { marginTop: space(5) }]}>{equipment.description}</Text>
         )}
+
+        {walkthrough ? (
+          <View style={{ marginTop: space(7) }}>
+            <Text style={[type.label, { marginBottom: space(3) }]}>HOW TO USE IT</Text>
+            <MediaPlayer playable={walkthrough} />
+          </View>
+        ) : null}
 
         {!!equipment.how_to_setup && (
           <Section title="SETTING IT UP">

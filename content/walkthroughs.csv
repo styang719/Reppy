@@ -1,0 +1,32 @@
+# Machine walkthrough videos — one row per video, ranked by the order they appear.
+#
+# Find a video on YouTube, take the id from the URL, and paste it here:
+#   https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  dQw4w9WgXcQ
+#   https://youtu.be/dQw4w9WgXcQ                 ->  dQw4w9WgXcQ
+#
+# What makes a good one for Reppy:
+#   - shows the whole machine before anyone sits on it
+#   - covers seat and pad adjustment, not just the reps
+#   - under about two minutes
+#   - no music-only edits; a beginner needs the talking
+#
+# Load with:  npm run curate
+# Rows with a blank youtube_id are skipped, so fill these in as you go.
+#
+equipment_slug,youtube_id,title,attribution,rank
+lat-pulldown,,How to use the lat pulldown,,10
+seated-cable-row,,How to use the seated cable row,,10
+chest-press-machine,,How to use the chest press machine,,10
+leg-press,,How to use the 45° leg press,,10
+seated-leg-press,,How to use the seated leg press,,10
+leg-extension,,How to use the leg extension,,10
+seated-leg-curl,,How to use the seated leg curl,,10
+smith-machine,,How to use the Smith machine,,10
+cable-crossover,,How to use the cable crossover,,10
+shoulder-press-machine,,How to use the shoulder press machine,,10
+treadmill,,How to use the treadmill,,10
+dumbbell-rack,,Choosing dumbbells as a beginner,,10
+pec-deck,,How to use the pec deck,,10
+flat-bench-press,,How to bench press safely,,10
+plate-loaded-row,,How to use the plate-loaded row,,10
+squat-rack,,How to set up a squat rack,,10
