@@ -110,6 +110,31 @@ export const MAPPING: Record<string, MappingRule> = {
     exclude: [/incline|decline|bench|smith|cable|machine/i],
     limit: 12,
   },
+  'seated-leg-press': {
+    allowSource: ['machine'],
+    include: [/leg press/i],
+    exclude: [/\bsmith\b/i],
+    limit: 6,
+  },
+  'flat-bench-press': {
+    allowSource: ['barbell'],
+    include: [/bench press/i],
+    // Incline, decline, machine and Smith variants are their own stations.
+    exclude: [/incline/i, /decline/i, /\bsmith\b/i, /machine/i, /dumbbell/i, /cable/i],
+    limit: 8,
+  },
+  'plate-loaded-row': {
+    allowSource: ['machine', 'barbell'],
+    include: [/\brow\b/i],
+    exclude: [/upright/i, /cable/i, /dumbbell/i, /\bsmith\b/i, /inverted/i],
+    limit: 8,
+  },
+  'squat-rack': {
+    allowSource: ['barbell'],
+    include: [/\bsquat\b/i, /rack pull/i],
+    exclude: [/\bsmith\b/i, /dumbbell/i, /machine/i, /bodyweight/i, /\bjump\b/i],
+    limit: 8,
+  },
   'pec-deck': {
     allowSource: ['machine'],
     include: [/pec deck/i, /butterfly/i, /(machine|lever) (chest )?(fly|flye)/i, /rear delt fly/i],

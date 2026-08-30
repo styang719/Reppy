@@ -29,3 +29,6 @@ supabase/.temp/
 .DS_Store
 npm-debug.*
 *.log
+
+# eval photos (local only)
+photos/
