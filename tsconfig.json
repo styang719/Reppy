@@ -7,5 +7,7 @@
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
-  "exclude": ["node_modules", "supabase/functions"]
+  // scripts/ runs on Node and supabase/functions/ on Deno; both are typechecked
+  // by their own config, since neither shares React Native's type environment.
+  "exclude": ["node_modules", "supabase/functions", "scripts"]
 }
