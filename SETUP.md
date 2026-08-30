@@ -66,6 +66,19 @@ npx supabase --version
 
 Both should succeed. If they do, you are ready for the checklist.
 
+## Warnings you will see, and should ignore
+
+`npm install` prints deprecation notices and a vulnerability count. Both are expected.
+
+- **`deprecated eslint@9.39.5`** — eslint 10 is out, but `eslint-config-expo` bundles a
+  React plugin that is not compatible with it yet, and linting crashes on the upgrade.
+  Tested; stay on 9 until Expo ships a compatible config.
+- **`deprecated uuid@7.0.3`** — a transitive dependency, nothing here selects it.
+- **moderate severity vulnerabilities** — in build tooling, not in shipped app code.
+
+**Do not run `npm audit fix --force`.** It upgrades across major versions and will break
+the dependency tree — Expo pins specific React Native and module versions deliberately.
+
 ---
 
 ## Where every command runs
