@@ -19,7 +19,20 @@ git --version
 node --version    # must be v20 or higher
 ```
 
-A code editor helps too. [VS Code](https://code.visualstudio.com) is the usual choice.
+A code editor helps too. [Cursor](https://cursor.com) and
+[VS Code](https://code.visualstudio.com) both work — Cursor is a VS Code fork, so
+everything here behaves identically in either.
+
+### Working in Cursor
+
+Open the project with **File → Open Folder**, or clone straight from the welcome screen.
+Then open the built-in terminal with <kbd>Ctrl</kbd>+<kbd>`</kbd> — it starts in the
+project folder, which avoids the most common setup mistake of running commands from the
+wrong directory.
+
+The repo ships `.cursor/rules/reppy.mdc`, so Cursor's assistant already knows the
+architecture constraints — the closed-set classification, where secrets may and may not
+go, and which tables need RLS. It will not need re-explaining.
 
 ## 2. Clone the repository
 
