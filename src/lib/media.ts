@@ -1,4 +1,4 @@
-import type { EquipmentMedia, MediaSource } from './database.types';
+import type { EquipmentMedia, MediaSource } from './models';
 
 /**
  * Resolving media to something playable.
@@ -51,7 +51,10 @@ const RESOLVERS: Record<MediaSource, Resolver> = {
 };
 
 export function resolveMedia(media: EquipmentMedia): Playable | null {
-  const resolver = RESOLVERS[media.source];
+  // `source` is a CHECK-constrained text column, so it arrives typed as string.
+  // An unrecognised value means the database knows a provider this build does
+  // not — fall through to the next ranked row rather than throwing.
+  const resolver = RESOLVERS[media.source as MediaSource];
   if (!resolver) return null;
   try {
     return resolver(media);

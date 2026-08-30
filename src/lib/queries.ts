@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from './supabase';
-import type { Equipment, EquipmentMedia, Exercise, MediaKind } from './database.types';
+import type { Equipment, EquipmentMedia, Exercise, MediaKind } from './models';
 
 export function useEquipment(slug: string | null) {
   return useQuery({
