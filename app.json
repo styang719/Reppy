@@ -10,20 +10,22 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.reppy.app",
+      "bundleIdentifier": "com.styang719.reppy",
       "infoPlist": {
         "NSCameraUsageDescription": "Reppy uses your camera to identify gym equipment from a photo."
       }
     },
     "android": {
-      "package": "com.reppy.app",
+      "package": "com.styang719.reppy",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "permissions": ["android.permission.CAMERA"],
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
       "predictiveBackGestureEnabled": false
     },
     "web": {
