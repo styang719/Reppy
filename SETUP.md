@@ -66,6 +66,17 @@ npx supabase --version
 
 Both should succeed. If they do, you are ready for the checklist.
 
+## One dashboard setting the app needs
+
+The app signs users in anonymously on launch, so a first-time user can scan before
+creating an account. Supabase ships that provider **disabled**, and the app fails at
+startup with "Anonymous sign-ins are disabled" until it is switched on.
+
+Dashboard → **Authentication → Providers → Anonymous Sign-Ins** → enable.
+
+The anonymous user is a real row in `auth.users`, so scan history survives when the
+account is later upgraded to a real sign-in.
+
 ## Warnings you will see, and should ignore
 
 `npm install` prints deprecation notices and a vulnerability count. Both are expected.
