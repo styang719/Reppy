@@ -16,7 +16,7 @@
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, extname, basename } from 'node:path';
-import { CATALOG } from './catalog';
+import { loadCatalog, type CatalogEntry } from './catalog';
 
 const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 
@@ -45,10 +45,6 @@ Rules:
 - Put genuinely plausible runner-up slugs in alternatives, closest first.
   Machines that look alike (lat pulldown vs. seated cable row) belong here.`;
 
-const slugs = CATALOG.map((e) => e.slug);
-const catalogForPrompt = CATALOG.map(
-  (e) => `- ${e.slug}: ${e.display_name}${e.aliases.length ? ` (also called: ${e.aliases.join(', ')})` : ''}`
-).join('\n');
 
 type Result = {
   file: string;
@@ -59,7 +55,20 @@ type Result = {
   ms: number;
 };
 
-async function identify(path: string): Promise<Omit<Result, 'file' | 'expected'>> {
+function buildPrompt(catalog: CatalogEntry[]) {
+  return catalog
+    .map(
+      (e) =>
+        `- ${e.slug}: ${e.display_name}${e.aliases.length ? ` (also called: ${e.aliases.join(', ')})` : ''}`
+    )
+    .join('\n');
+}
+
+async function identify(
+  path: string,
+  slugs: string[],
+  catalogForPrompt: string
+): Promise<Omit<Result, 'file' | 'expected'>> {
   const b64 = readFileSync(path).toString('base64');
   const started = Date.now();
 
@@ -121,13 +130,19 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Model: ${model}   Detail: ${detail}   Catalog: ${slugs.length} slugs   Photos: ${files.length}\n`);
+  const { entries: catalog, source } = await loadCatalog();
+  const slugs = catalog.map((e) => e.slug);
+  const catalogForPrompt = buildPrompt(catalog);
+
+  console.log(
+    `Model: ${model}   Detail: ${detail}   Catalog: ${slugs.length} slugs (${source})   Photos: ${files.length}\n`
+  );
 
   const results: Result[] = [];
   for (const file of files) {
     const expected = file.includes('__') ? basename(file).split('__')[0] : null;
     try {
-      const r = await identify(join(dir, file));
+      const r = await identify(join(dir, file), slugs, catalogForPrompt);
       results.push({ file, expected, ...r });
 
       const mark = expected === null ? ' ' : r.got === expected ? '✓' : '✗';
