@@ -135,6 +135,182 @@ export const MAPPING: Record<string, MappingRule> = {
     exclude: [/\bsmith\b/i, /dumbbell/i, /machine/i, /bodyweight/i, /\bjump\b/i],
     limit: 8,
   },
+
+  // ── Added with the 51-machine catalog ────────────────────────────────────
+
+  'hip-abduction': {
+    allowSource: ['machine'],
+    include: [/abduction/i, /abductor/i, /outer thigh/i],
+    limit: 5,
+  },
+  'hip-adduction': {
+    allowSource: ['machine'],
+    include: [/adduction/i, /adductor/i, /inner thigh/i],
+    limit: 5,
+  },
+  'back-extension': {
+    include: [/back extension/i, /hyperextension/i],
+    exclude: [/\bball\b/i],
+    limit: 6,
+  },
+  'glute-ham-developer': {
+    include: [/glute ham/i, /nordic/i, /natural hamstring/i],
+    limit: 5,
+  },
+  'hip-thrust-machine': {
+    include: [/hip thrust/i, /glute bridge/i],
+    limit: 6,
+  },
+  'seated-calf-raise': {
+    allowSource: ['machine', 'barbell', 'dumbbell'],
+    include: [/seated calf/i],
+    limit: 5,
+  },
+  'standing-calf-raise': {
+    allowSource: ['machine', 'barbell', 'dumbbell'],
+    include: [/calf raise/i, /calf press/i],
+    exclude: [/seated/i, /leg press/i],
+    limit: 6,
+  },
+  'hack-squat': {
+    allowSource: ['machine', 'barbell'],
+    include: [/hack squat/i],
+    limit: 5,
+  },
+  'lying-leg-curl': {
+    allowSource: ['machine'],
+    include: [/lying leg curl/i, /prone leg curl/i],
+    limit: 5,
+  },
+  'glute-kickback': {
+    include: [/kickback/i, /glute extension/i, /hip extension/i],
+    exclude: [/tricep/i],
+    limit: 5,
+  },
+  'assisted-pull-up': {
+    include: [/assisted (chin|pull)/i, /machine assisted/i],
+    limit: 5,
+  },
+  't-bar-row': {
+    allowSource: ['machine', 'barbell'],
+    include: [/t-?bar row/i, /landmine row/i],
+    limit: 5,
+  },
+  'chest-supported-row': {
+    allowSource: ['machine', 'dumbbell'],
+    include: [/chest supported/i, /incline .*row/i, /seal row/i, /lever .*row/i, /prone .*row/i],
+    limit: 6,
+  },
+  'pull-up-bar': {
+    allowSource: ['bodyweight'],
+    include: [/pull-?up/i, /chin-?up/i],
+    exclude: [/assisted/i, /machine/i, /lat pull/i],
+    limit: 8,
+  },
+  'iso-lateral-pulldown': {
+    allowSource: ['machine', 'cable'],
+    include: [/pulldown/i, /pull-?down/i],
+    exclude: [/straight-?arm/i],
+    limit: 6,
+  },
+  'incline-bench-press': {
+    allowSource: ['barbell', 'dumbbell'],
+    include: [/incline.*(press|bench)/i],
+    exclude: [/\bsmith\b/i, /machine/i, /cable/i, /\bfly/i],
+    limit: 8,
+  },
+  'adjustable-bench': {
+    allowSource: ['dumbbell'],
+    include: [/bench (press|fly)/i, /incline dumbbell/i],
+    exclude: [/barbell/i, /\bsmith\b/i, /machine/i],
+    limit: 8,
+  },
+  'rear-delt-fly': {
+    include: [/rear (delt|deltoid)/i, /reverse (fly|flye)/i, /rear lateral/i],
+    limit: 6,
+  },
+  'lateral-raise-machine': {
+    allowSource: ['machine', 'cable', 'dumbbell'],
+    include: [/lateral raise/i, /side lateral/i],
+    exclude: [/rear/i, /front/i, /lying/i],
+    limit: 5,
+  },
+  'dip-station': {
+    allowSource: ['bodyweight'],
+    include: [/\bdip\b/i, /\bdips\b/i],
+    exclude: [/assisted/i, /machine/i, /bench dip/i],
+    limit: 6,
+  },
+  'preacher-curl-bench': {
+    allowSource: ['barbell', 'dumbbell'],
+    include: [/preacher/i, /concentration curl/i],
+    limit: 6,
+  },
+  'bicep-curl-machine': {
+    allowSource: ['machine'],
+    include: [/curl/i],
+    exclude: [/leg/i, /hamstring/i, /wrist/i, /preacher/i],
+    limit: 5,
+  },
+  'tricep-extension-machine': {
+    allowSource: ['machine'],
+    include: [/tricep/i],
+    limit: 5,
+  },
+  'ab-crunch-machine': {
+    allowSource: ['machine'],
+    include: [/crunch/i, /\bab\b/i],
+    limit: 6,
+  },
+  'rotary-torso': {
+    allowSource: ['machine', 'cable'],
+    include: [/torso/i, /twist/i, /oblique/i, /rotation/i, /wood ?chop/i],
+    exclude: [/wrist/i],
+    limit: 5,
+  },
+  'roman-chair': {
+    allowSource: ['bodyweight'],
+    include: [/knee raise/i, /leg raise/i, /hanging/i],
+    exclude: [/lying/i, /floor/i],
+    limit: 6,
+  },
+  'elliptical': {
+    include: [/elliptical/i],
+    limit: 4,
+  },
+  'upright-bike': {
+    include: [/cycling/i, /stationary bike/i, /\bbike\b/i],
+    exclude: [/recumbent/i],
+    limit: 4,
+  },
+  'recumbent-bike': {
+    include: [/recumbent/i],
+    limit: 4,
+  },
+  'rowing-machine': {
+    include: [/rowing machine/i, /\berg\b/i, /rowing, stationary/i],
+    limit: 4,
+  },
+  'stair-climber': {
+    include: [/stair/i, /step mill/i, /stepper/i],
+    limit: 4,
+  },
+  'functional-trainer': {
+    allowSource: ['cable'],
+    include: [/cable/i],
+    exclude: [/crossover/i, /pulldown/i, /\brow\b/i],
+    limit: 10,
+  },
+  'kettlebell-rack': {
+    allowSource: ['dumbbell'],
+    include: [/kettlebell/i],
+    limit: 8,
+  },
+  'sled-push': {
+    include: [/sled/i, /prowler/i],
+    limit: 4,
+  },
+
   'pec-deck': {
     allowSource: ['machine'],
     include: [/pec deck/i, /butterfly/i, /(machine|lever) (chest )?(fly|flye)/i, /rear delt fly/i],
