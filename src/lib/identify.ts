@@ -5,11 +5,15 @@ import { supabase } from './supabase';
  * Long-edge target for the image we send to the vision model.
  *
  * A 12MP camera original is ~4000px wide and costs far more image tokens than
- * a gym machine needs to be recognisable. Downscaling here is the single
- * biggest lever on both per-scan cost and round-trip latency.
+ * a gym machine needs to be recognisable, so some downscaling is worthwhile.
+ *
+ * 768px was too aggressive: combined with the model's own tiling it left too
+ * little detail to separate machines that differ only in pad placement or arm
+ * path. 1024px matches the tile grid the model uses at high detail and costs
+ * nothing extra in tokens over 768.
  */
-const MAX_EDGE = 768;
-const JPEG_QUALITY = 0.7;
+const MAX_EDGE = 1024;
+const JPEG_QUALITY = 0.8;
 
 export interface IdentifyResult {
   equipment_slug: string | null;

@@ -23,6 +23,20 @@ const SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
 const MODEL = Deno.env.get('VISION_MODEL') ?? 'gpt-4o-mini';
 
+/**
+ * How much of the image the model actually sees.
+ *
+ * 'low' downsamples to 512x512 for a flat 85 tokens. That is far too coarse to
+ * separate machines that differ only in seat angle or arm path — a lat pulldown
+ * and a seated row look much alike at that size. Published benchmarks put low
+ * detail around 14 points behind on vision reasoning.
+ *
+ * 'high' tiles the image at 512px and costs roughly 765 tokens for a 1024px
+ * photo. Nine times the image tokens, still a fraction of a cent per scan, and
+ * the right default until accuracy is measured rather than assumed.
+ */
+const IMAGE_DETAIL = Deno.env.get('VISION_DETAIL') ?? 'high';
+
 /** Max scans per user per hour. A leaked endpoint without a cap is a bill. */
 const RATE_LIMIT_PER_HOUR = 60;
 
@@ -43,7 +57,20 @@ Rules:
 - confidence reflects how sure you are: 0.9+ means unmistakable, below 0.6 means
   you are guessing between similar machines.
 - Put genuinely plausible runner-up slugs in alternatives, closest first.
-  Machines that look alike (lat pulldown vs. seated cable row) belong here.`;
+  Machines that look alike (lat pulldown vs. seated cable row) belong here.
+
+What separates machines that look similar:
+- Where the resistance comes from: a pin-loaded weight stack, plates on horns,
+  or a barbell on rails.
+- Which way the seat faces relative to the handles, and whether the user pulls
+  toward themselves or pushes away.
+- Whether the handles travel vertically (pulldown, shoulder press), horizontally
+  (row, chest press), or in an arc (pec deck, cable crossover).
+- Pads present: a thigh pad above the knees, a chest pad to lean into, a back
+  pad to press against. These are often the only difference between two
+  otherwise identical frames.
+- Read any visible labels or diagrams on the machine — manufacturers usually
+  print the exercise name right on the frame.`;
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -135,7 +162,7 @@ Deno.serve(async (req) => {
               { type: 'text', text: `Known equipment:\n${catalogForPrompt}` },
               {
                 type: 'image_url',
-                image_url: { url: `data:image/jpeg;base64,${imageBase64}`, detail: 'low' },
+                image_url: { url: `data:image/jpeg;base64,${imageBase64}`, detail: IMAGE_DETAIL },
               },
             ],
           },

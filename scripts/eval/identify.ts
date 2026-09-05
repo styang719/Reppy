@@ -23,6 +23,7 @@ const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 const args = process.argv.slice(2);
 const dir = args.find((a) => !a.startsWith('--')) ?? './photos';
 const model = args.find((a) => a.startsWith('--model='))?.split('=')[1] ?? 'gpt-4o-mini';
+const detail = args.find((a) => a.startsWith('--detail='))?.split('=')[1] ?? 'high';
 
 const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {
@@ -73,7 +74,7 @@ async function identify(path: string): Promise<Omit<Result, 'file' | 'expected'>
           role: 'user',
           content: [
             { type: 'text', text: `Known equipment:\n${catalogForPrompt}` },
-            { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${b64}`, detail: 'low' } },
+            { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${b64}`, detail } },
           ],
         },
       ],
@@ -120,7 +121,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Model: ${model}   Catalog: ${slugs.length} slugs   Photos: ${files.length}\n`);
+  console.log(`Model: ${model}   Detail: ${detail}   Catalog: ${slugs.length} slugs   Photos: ${files.length}\n`);
 
   const results: Result[] = [];
   for (const file of files) {
