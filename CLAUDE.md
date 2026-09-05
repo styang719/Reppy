@@ -6,6 +6,42 @@ and shows what it is, how to set it up, and demo videos.
 Full reasoning lives in `docs/ARCHITECTURE.md`. The decisions below are load-bearing —
 each was made for a reason that is not obvious from the code alone.
 
+## Where the project is
+
+Deployed and working: schema with RLS, 16-machine catalog, 80 exercises ingested from
+free-exercise-db, the `identify-equipment` Edge Function, and the app running on a
+physical iPhone via a local Xcode build.
+
+**The open question is vision accuracy.** Real gym photos came back badly
+misidentified. The cause was `detail: 'low'` on the vision call, which downsamples
+every image to 512x512 — since fixed, along with raising the client downscale to
+1024px. That fix is deployed but **not yet measured**. Run the eval harness against a
+folder of real gym photos before building anything else:
+
+```
+OPENAI_API_KEY=sk-... npm run eval -- ./photos
+```
+
+If accuracy is still poor, the options are a stronger model, or a purpose-trained
+classifier (Roboflow hosts gym-equipment detectors reporting ~90% mAP@50). Do not
+guess between them — the harness reports which misses the alternatives list would
+have rescued, and which photos matched nothing.
+
+Not started: walkthrough videos. `content/walkthroughs.csv` has a row per machine and
+no video ids, deliberately. Fill them in and run `npm run curate`.
+
+## Dependency pinning
+
+"Latest on npm" and "works with this Expo SDK" are different answers, and three
+packages have already broken the native build by being too new: react-native-worklets
+(expo-modules-core caps it at ^0.10), react-native-reanimated (must pair with the
+worklets version), and @react-native-async-storage/async-storage (3.x renames its pod
+and splits into a legacy path supabase-js cannot reach). Check peer ranges in
+node_modules before bumping any of them.
+
+None of this is caught by `npm run typecheck` or `expo export` — both only exercise
+JavaScript. A native mismatch appears only when Xcode compiles.
+
 ## Three runtimes, three type environments
 
 | Path | Runtime | Typechecked by |
