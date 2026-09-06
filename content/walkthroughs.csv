@@ -1,32 +1,79 @@
-# Machine walkthrough videos — one row per video, ranked by the order they appear.
+# Machine walkthrough videos — one row per machine, 51 in total.
 #
-# Find a video on YouTube, take the id from the URL, and paste it here:
+# Paste ONLY the video id from a YouTube URL:
 #   https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  dQw4w9WgXcQ
 #   https://youtu.be/dQw4w9WgXcQ                 ->  dQw4w9WgXcQ
 #
-# What makes a good one for Reppy:
+# What makes a good one for a beginner:
 #   - shows the whole machine before anyone sits on it
 #   - covers seat and pad adjustment, not just the reps
 #   - under about two minutes
-#   - no music-only edits; a beginner needs the talking
+#   - someone talking; a music-only edit teaches nothing
 #
-# Load with:  npm run curate
-# Rows with a blank youtube_id are skipped, so fill these in as you go.
+# Rows with a blank youtube_id are skipped, so fill these in over several
+# sittings and re-run `npm run curate` whenever. The last column is only a
+# suggested search and is ignored by the loader.
 #
-equipment_slug,youtube_id,title,attribution,rank
-lat-pulldown,,How to use the lat pulldown,,10
-seated-cable-row,,How to use the seated cable row,,10
-chest-press-machine,,How to use the chest press machine,,10
-leg-press,,How to use the 45° leg press,,10
-seated-leg-press,,How to use the seated leg press,,10
-leg-extension,,How to use the leg extension,,10
-seated-leg-curl,,How to use the seated leg curl,,10
-smith-machine,,How to use the Smith machine,,10
-cable-crossover,,How to use the cable crossover,,10
-shoulder-press-machine,,How to use the shoulder press machine,,10
-treadmill,,How to use the treadmill,,10
-dumbbell-rack,,Choosing dumbbells as a beginner,,10
-pec-deck,,How to use the pec deck,,10
-flat-bench-press,,How to bench press safely,,10
-plate-loaded-row,,How to use the plate-loaded row,,10
-squat-rack,,How to set up a squat rack,,10
+equipment_slug,youtube_id,title,attribution,rank,search_hint
+
+# ── TIER 1 · do these first ──────────────────────────────────────────────
+# The machines a beginner meets immediately and cannot work out by looking.
+# Fifteen videos covers most of what sends someone to the app in the first place.
+lat-pulldown,,How to use the lat pulldown,,10,how to use lat pulldown beginner
+chest-press-machine,,How to use the chest press machine,,10,how to use chest press machine beginner
+seated-cable-row,,How to use the seated cable row,,10,how to use seated cable row beginner
+leg-press,,How to use the leg press,,10,how to use leg press beginner
+seated-leg-press,,How to use the seated leg press,,10,how to use seated leg press beginner
+leg-extension,,How to use the leg extension,,10,how to use leg extension beginner
+seated-leg-curl,,How to use the seated leg curl,,10,how to use seated leg curl beginner
+shoulder-press-machine,,How to use the shoulder press machine,,10,how to use shoulder press machine beginner
+pec-deck,,How to use the pec deck,,10,how to use pec deck beginner
+cable-crossover,,How to use the cable crossover,,10,how to use cable crossover beginner
+hip-abduction,,How to use the hip abduction machine,,10,how to use hip abduction machine beginner
+hip-adduction,,How to use the hip adduction machine,,10,how to use hip adduction machine beginner
+assisted-pull-up,,How to use the assisted pull-up machine,,10,how to use assisted pull-up machine beginner
+smith-machine,,How to use the smith machine,,10,how to use smith machine beginner
+back-extension,,How to use the back extension bench,,10,how to use back extension bench beginner
+
+# ── TIER 2 · worth having ────────────────────────────────────────────────
+# Common, but a beginner is less likely to attempt them unprompted.
+lying-leg-curl,,How to use the lying leg curl,,20,how to use lying leg curl beginner
+hack-squat,,How to use the hack squat machine,,20,how to use hack squat machine beginner
+seated-calf-raise,,How to use the seated calf raise,,20,how to use seated calf raise beginner
+standing-calf-raise,,How to use the standing calf raise,,20,how to use standing calf raise beginner
+hip-thrust-machine,,How to use the hip thrust machine,,20,how to use hip thrust machine beginner
+glute-kickback,,How to use the glute kickback machine,,20,how to use glute kickback machine beginner
+plate-loaded-row,,How to use the plate-loaded row,,20,how to use plate-loaded row beginner
+chest-supported-row,,How to use the chest-supported row,,20,how to use chest-supported row beginner
+iso-lateral-pulldown,,How to use the iso-lateral pulldown,,20,how to use iso-lateral pulldown beginner
+t-bar-row,,How to use the t-bar row,,20,how to use t-bar row beginner
+rear-delt-fly,,How to use the rear delt fly machine,,20,how to use rear delt fly machine beginner
+lateral-raise-machine,,How to use the lateral raise machine,,20,how to use lateral raise machine beginner
+bicep-curl-machine,,How to use the bicep curl machine,,20,how to use bicep curl machine beginner
+tricep-extension-machine,,How to use the triceps extension machine,,20,how to use triceps extension machine beginner
+ab-crunch-machine,,How to use the ab crunch machine,,20,how to use ab crunch machine beginner
+rotary-torso,,How to use the rotary torso machine,,20,how to use rotary torso machine beginner
+functional-trainer,,How to use the functional trainer,,20,how to use functional trainer beginner
+glute-ham-developer,,How to use the glute-ham developer,,20,how to use glute-ham developer beginner
+
+# ── TIER 3 · lowest value ────────────────────────────────────────────────
+# Mostly self-explanatory (a treadmill, a dumbbell rack) or rarely scanned.
+# Several of these may never need a video at all.
+treadmill,,How to use the treadmill,,30,how to use treadmill beginner
+dumbbell-rack,,How to use the dumbbell rack,,30,how to use dumbbell rack beginner
+flat-bench-press,,How to use the flat bench press,,30,how to use flat bench press beginner
+squat-rack,,How to use the squat rack,,30,how to use squat rack beginner
+pull-up-bar,,How to use the pull-up bar,,30,how to use pull-up bar beginner
+incline-bench-press,,How to use the incline bench press,,30,how to use incline bench press beginner
+adjustable-bench,,How to use the adjustable bench,,30,how to use adjustable bench beginner
+dip-station,,How to use the dip station,,30,how to use dip station beginner
+preacher-curl-bench,,How to use the preacher curl bench,,30,how to use preacher curl bench beginner
+roman-chair,,How to use the roman chair,,30,how to use roman chair beginner
+elliptical,,How to use the elliptical trainer,,30,how to use elliptical trainer beginner
+upright-bike,,How to use the upright exercise bike,,30,how to use upright exercise bike beginner
+recumbent-bike,,How to use the recumbent bike,,30,how to use recumbent bike beginner
+rowing-machine,,How to use the rowing machine,,30,how to use rowing machine beginner
+stair-climber,,How to use the stair climber,,30,how to use stair climber beginner
+kettlebell-rack,,How to use the kettlebell rack,,30,how to use kettlebell rack beginner
+weight-plate-tree,,How to use the weight plate tree,,30,how to use weight plate tree beginner
+sled-push,,How to use the push sled,,30,how to use push sled beginner
